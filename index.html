@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Contacts</h1>
+    <ul id="contactList"></ul>
+
+    <script>
+        // JavaScript will be written here
+        var contacts = ["Arnold", "Sly", "Dwayne", "Vin", "JCVD", "Steven"];
+        
+        // Function to display contacts
+        function displayContacts() {
+            var contactList = document.getElementById('contactList');
+            contacts.forEach((contact, index) => {
+                var listItem = document.createElement('li');
+                listItem.textContent = `Slot # ${index} - ${contact}`;
+                contactList.appendChild(listItem);
+            });
+        }
+
+        // Initial display on page load
+        window.onload = function() {
+            displayContacts();
+            promptUser();
+        }
+
+        // Function to prompt user for entry number
+        function promptUser() {
+            while(true) {
+                var entryNumber = prompt("Enter Entry Number:");
+                if(entryNumber === null) break; // Cancel
+
+                entryNumber = parseInt(entryNumber);
+                if(entryNumber >= 0 && entryNumber < contacts.length) {
+                    var message = `Displaying ${contacts[entryNumber]}.\nDo you want to make another selection? y/n`;
+                    var anotherSelection = prompt(message);
+                    if(anotherSelection.toLowerCase() !== 'y') break;
+                } else {
+                    var message = "That Entry is not in the Database.\nDo you want to make another selection? y/n";
+                    var anotherSelection = prompt(message);
+                    if(anotherSelection.toLowerCase() !== 'y') break;
+                }
+            }
+            exitMessage();
+        }
+
+        // Function to display exit message
+        function exitMessage() {
+            document.body.innerHTML = `
+                <h1>Goodbye!</h1>
+                <p>Thank you for using the Contacts app. Have a great day!</p>
+            `;
+        }
+    </script>
+</body>
+</html>
